@@ -78,6 +78,7 @@ The primary objective is learning, experimenting, making mistakes, and improving
 * [x] Model
 * [x] Register API with Password Hashing
 * [x] JWT Integration
+* [x] Login API with Cookie 
 * [ ] Role Based actions (USER, ARTIST)
 * [ ] More features coming soon...
 
