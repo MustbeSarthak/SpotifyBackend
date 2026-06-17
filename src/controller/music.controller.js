@@ -25,17 +25,21 @@ async function createMusic(req,res) {
 
     const {title} = req.body;
     const file = req.file;
-    if(!file || !file.buffer){
+    if(!file || !file.buffer){ 
+        // If no file is uploaded normally or in RAM 
         return res.status(400).json({ message: "No music file uploaded" })
     }
 
-    const result = await uploadFile(file.buffer.toString('base64'))
 
+    const result = await uploadFile(file.buffer.toString('base64')) // Uploading music 
+
+    // Uploading music in DB
     const music = await musicModel.create({
         uri: result.url,
         title,
         artist: decoded.id,
     })
+
     res.status(201).json({
         message: "Music Created Successfully",
         music: {
