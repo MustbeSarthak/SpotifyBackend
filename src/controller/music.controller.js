@@ -7,7 +7,7 @@ async function createMusic(req,res) {
     const file = req.file;
 
     if(!title){
-        return res.status(400).json({message:"Title is required"})l
+        return res.status(400).json({message:"Title is required"})
     }
     if(!file || !file.buffer){ 
 
