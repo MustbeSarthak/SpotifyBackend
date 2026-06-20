@@ -1,87 +1,110 @@
-# Spotify Backend (Under Development)
+# Spotify Backend
 
-> Learning Project – Building a Spotify-inspired backend to get comfortable with Node.js, Express, and backend development concepts.
+A Spotify-inspired backend application built with Node.js, Express, and MongoDB. This project was created to gain hands-on experience with backend development concepts such as authentication, authorization, file uploads, database design, and REST API development.
 
-## Project Status
+## Features
 
-This project is currently under development and is being built primarily for learning purposes. Features and documentation will continue to evolve as new concepts are implemented.
+### Authentication & Authorization
 
----
+* User Registration
+* User Login
+* JWT-based Authentication
+* Cookie-based Token Storage
+* Password Hashing using bcrypt
+* Role-Based Authorization (User / Artist)
 
-## Purpose
+### Music Management
 
-The goal of this project is to:
+* Upload Songs
+* Store Music Files using ImageKit
+* Artist-specific Music Uploads
+* Fetch Uploaded Songs
 
-* Get comfortable with Node.js and Express.js
-* Understand how backend systems are structured
-* Learn authentication and authorization concepts
-* Work with databases using MongoDB
-* Build real-world backend development skills through practice
+### Album Management
 
----
+* Create Albums
+* Associate Songs with Albums
+* Fetch Albums
+* Search Albums
+
+### Search Functionality
+
+* Search Users
+* Search Songs
+* Search Albums
+* Case-insensitive Search using MongoDB Regex
+
+### Security
+
+* Protected Routes
+* JWT Verification Middleware
+* Password Encryption
+* Sensitive Field Exclusion from Responses
 
 ## Tech Stack
 
+### Backend
+
 * Node.js
 * Express.js
+
+### Database
+
 * MongoDB
 * Mongoose
-* JWT (JSON Web Tokens)
+
+### Authentication
+
+* JSON Web Token (JWT)
 * bcrypt
 
----
+### File Storage
 
-## Implemented Features
+* ImageKit
 
-### User Model
+### Middleware & Utilities
 
-* Created a user schema using Mongoose.
-* Basic user structure setup.
+* Multer
+* Cookie Parser
+* dotenv
 
-### Register API
+## Project Structure
 
-* User registration endpoint implemented.
-* Passwords are securely hashed using bcrypt.
-* JWT tokens are generated upon successful registration.
+```text
+src/
+├── controller/
+├── middlewares/
+├── model/
+├── routes/
+├── services/
+└── app.js
+```
 
----
+## API Modules
 
-## Upcoming Features
+* Authentication APIs
+* User APIs
+* Music APIs
+* Album APIs
+* Search APIs
 
-Features will be added gradually as the learning journey continues.
+## Learning Objectives
 
-Some planned additions include:
+This project was built to strengthen understanding of:
 
-* Login API
-* Authentication Middleware
-* Role-Based Authorization
-* User Profile APIs
-* Playlist Management
-* Song APIs
-* Search Functionality
-* Error Handling Improvements
-* Input Validation
-* Testing
+* REST API Development
+* Authentication & Authorization
+* Database Relationships
+* File Upload Handling
+* Backend Architecture
+* MongoDB Querying
+* Express Middleware
+* Git & GitHub Workflow
 
----
+## Project Status
 
-## Note
+Core backend functionality has been implemented, including authentication, role-based authorization, music uploads, album management, and search features.
 
-This is not a production-ready project.
+Future enhancements may include playlists, favorites, recommendations, and streaming-related functionality.
 
-The primary objective is learning, experimenting, making mistakes, and improving backend development skills step by step.
 
----
-
-### Progress So Far
-
-* [x] Model
-* [x] Register API with Password Hashing
-* [x] JWT Integration
-* [x] Login API with Cookie 
-* [ ] Role Based actions (USER, ARTIST)
-* [ ] More features coming soon...
-
----
-
-Built while learning. Updated as I grow.
