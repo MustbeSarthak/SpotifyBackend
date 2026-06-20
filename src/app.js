@@ -11,4 +11,5 @@ app.use(cookieParser()); // Parse Cookies
 app.use('/api/auth', authRoutes);
 app.use('/api/music', musicRoutes);
 
+
 module.exports = app;

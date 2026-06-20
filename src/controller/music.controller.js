@@ -42,7 +42,7 @@ async function createAlbum(req,res){
     
     const album = await MusicAlbum.create({
         title,
-        artist: req.deocded.id,
+        artist: req.decoded.id,
         musicUri: musicIds,
     })
 
@@ -52,10 +52,37 @@ async function createAlbum(req,res){
             id: album._id,
             title: album.title,
             artist: album.artist,
-            music: album.music,
+            music: album.musicUri,
         }
     })
 
 }
 
-module.exports = { createMusic, createAlbum };
+
+// GET Music
+async function searchMusic(req,res) {
+    const {title} = req.query;
+
+    const music = await musicModel.find({
+        title: {
+            $regex: title,
+            $options: "i",
+        }
+    });
+    res.status(200).json({music})
+}
+
+// GET album
+async function searchAlbum(req,res){
+    const {title} = req.query;
+
+    const album = await MusicAlbum.find({
+        title:{
+            $regex: title,
+            $options: "i",
+        }
+    });
+    res.status(200).json({album})
+}
+
+module.exports = { createMusic, createAlbum, searchMusic, searchAlbum };
