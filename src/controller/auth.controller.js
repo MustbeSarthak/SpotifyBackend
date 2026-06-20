@@ -5,16 +5,26 @@ const bcrypt = require('bcrypt');
 // Register API 
 async function register(req, res) {
     try {
-        const { username, email, password, role = "user" } = req.body;
+        const {
+            username,
+            email,
+            password,
+            role = "user"
+        } = req.body;
         const isUserAlreadyExist = await UserSchema.findOne({
-            $or: [
-                { username },
-                { email }
+            $or: [{
+                    username
+                },
+                {
+                    email
+                }
             ]
         });
 
         if (isUserAlreadyExist) {
-            return res.status(409).json({ message: "User already exists" });
+            return res.status(409).json({
+                message: "User already exists"
+            });
         }
 
         const hash = await bcrypt.hash(password, 10) // Hash password here with 10 rounds 
@@ -41,9 +51,11 @@ async function register(req, res) {
                 role: user.role
             }
         })
-    }
-    catch (err) {
-        res.status(500).json({ message: "Internal Server Error", error: err.message });
+    } catch (err) {
+        res.status(500).json({
+            message: "Internal Server Error",
+            error: err.message
+        });
     }
 }
 
@@ -51,7 +63,11 @@ async function register(req, res) {
 // Login user
 async function Login(req, res) {
     try {
-        const { username, email, password } = req.body;
+        const {
+            username,
+            email,
+            password
+        } = req.body;
         if ((!email && !username) || !password) {
             return res.status(400).json({
                 message: "Please provide your email and password"
@@ -60,15 +76,18 @@ async function Login(req, res) {
 
         // Check if user exists
         const user = await UserSchema.findOne({
-            $or: [
-                { username },
-                { email }
+            $or: [{
+                    username
+                },
+                {
+                    email
+                }
             ]
-        })
+        }).select("+password +email");
 
         if (!user) {
             return res.status(401).json({
-                message: "Invalid Credentials"
+                message: "Please provide your credentials "
             })
         }
 
@@ -81,15 +100,12 @@ async function Login(req, res) {
         }
 
         // Token Assign
-        const token = jwt.sign(
-            {
-                id: user._id,
-                role: user.role
-            }, process.env.JWT_SECRET,
-            {
-                expiresIn: "1d"
-            }
-        )
+        const token = jwt.sign({
+            id: user._id,
+            role: user.role
+        }, process.env.JWT_SECRET, {
+            expiresIn: "1d"
+        })
         //Assign Token
         res.cookie("token", token)
 
@@ -111,4 +127,29 @@ async function Login(req, res) {
     }
 }
 
-module.exports = { register, Login }
+// GET User
+async function searchUser(req, res) {
+    const {
+        username
+    } = req.query;
+    if (!username) {
+        return res.status(400).json({
+            message: "Username is required"
+        });
+    }
+    const user = await UserSchema.find({
+        username: {
+            $regex: username,
+            $options: "i",
+        }
+    }).select("-password -email").limit(10)
+    res.status(200).json({
+        user
+    })
+}
+
+module.exports = {
+    register,
+    Login,
+    searchUser
+}

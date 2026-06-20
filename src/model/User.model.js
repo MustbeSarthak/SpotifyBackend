@@ -13,12 +13,14 @@ const UserSchema = new mongoose.Schema(
             required: true,
             unique: true,
             lowercase: true,
-            trim: true
+            trim: true,
+            select:false,
         },
         password: {
             type: String,
             required: true,
-            minlength: 6
+            minlength: 6,
+            select:false,
         },
         role: {
             type: String,
@@ -29,5 +31,4 @@ const UserSchema = new mongoose.Schema(
 )
 
 const User = mongoose.model("User", UserSchema);
-
 module.exports = User
