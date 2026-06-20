@@ -1,3 +1,4 @@
+const MusicAlbum = require('../model/album.model');
 const  musicModel = require('../model/music.model')
 const {uploadFile} = require('../services/storage.service');
 
@@ -37,7 +38,24 @@ async function createMusic(req,res) {
 
 // ALbum
 async function createAlbum(req,res){
+    const {title , musicIds } = req.body;
+    
+    const album = await MusicAlbum.create({
+        title,
+        artist: req.deocded.id,
+        musicUri: musicIds,
+    })
+
+    res.status(201).json({
+        message: "Album has been succesfully created",
+        album:{
+            id: album._id,
+            title: album.title,
+            artist: album.artist,
+            music: album.music,
+        }
+    })
 
 }
 
-module.exports = { createMusic };
+module.exports = { createMusic, createAlbum };

@@ -11,6 +11,7 @@ const upload = multer({
 
 const router = express.Router()
 
-router.post('/upload', authArtist , upload.single(),  musicController.createMusic);
+router.post('/upload', authArtist , upload.single('music'),  musicController.createMusic);
+router.post('/album', authArtist, musicController.createAlbum)
 
 module.exports = router;
